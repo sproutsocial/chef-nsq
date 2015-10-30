@@ -13,5 +13,8 @@ default['nsq']['data_path'] = '/var/spool/nsq'
 # Should we setup upstart services?
 default['nsq']['setup_services'] = true
 
+# Should we reload services on config changes?
+default['nsq']['reload_services'] = true
+
 # Release URL. Defaults to bitly upstream
 default['nsq']['release_url'] = 'https://s3.amazonaws.com/bitly-downloads/nsq'

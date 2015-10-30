@@ -18,8 +18,10 @@ if node['nsq']['setup_services']
     source 'upstart.nsqlookupd.conf.erb'
     mode '0644'
     # need to stop/start in order to reload config
-    notifies :stop, 'service[nsqlookupd]', :immediately
-    notifies :start, 'service[nsqlookupd]', :immediately
+    if node['nsq']['reload_services']
+      notifies :stop, 'service[nsqlookupd]', :immediately
+      notifies :start, 'service[nsqlookupd]', :immediately
+    end
   end
 
   service 'nsqlookupd' do
