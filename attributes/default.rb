@@ -11,7 +11,7 @@ default['nsq']['arch'] = 'linux-amd64'
 default['nsq']['setup_services'] = true
 
 # Should we reload services on config changes?
-default['nsq']['reload_services'] = true
+default['nsq']['reload_services'] = false
 
 # Release URL. Defaults to bitly upstream
 default['nsq']['release_url'] = 'https://s3.amazonaws.com/bitly-downloads/nsq'
