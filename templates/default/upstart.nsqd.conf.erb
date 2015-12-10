@@ -83,8 +83,6 @@ script
          --tcp-address=<%= node['nsq']['nsqd']['tcp_address'] %> \
         <%- if !node['nsq']['nsqd']['broadcast_address'].empty? %>
            --broadcast-address=<%= node['nsq']['nsqd']['broadcast_address'] %> \
-        <%- else %>
-           --broadcast-address=<%= node['ipaddress'] %> \
         <%- end %>
          --verbose=<%= node['nsq']['nsqd']['verbose'] %> 2>&1
 end script
