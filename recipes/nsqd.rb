@@ -21,6 +21,7 @@ directory node['nsq']['nsqd']['data_path'] do
   mode '0770'
   owner 'nsqd'
   group 'nsqd'
+  recursive true
 end
 
 if node['nsq']['setup_services']
