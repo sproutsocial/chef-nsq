@@ -10,7 +10,7 @@ respawn
 script
   set -e
   mkfifo /tmp/nsqadmin-log-fifo
-  ( logger -t nsqadmin </tmp/nsqadmin-log-fifo & )
+  ( <%= node['nsq']['logger_bin'] %> -t nsqadmin </tmp/nsqadmin-log-fifo & )
   exec >/tmp/nsqadmin-log-fifo
   rm /tmp/nsqadmin-log-fifo
 

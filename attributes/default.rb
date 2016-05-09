@@ -15,3 +15,7 @@ default['nsq']['reload_services'] = false
 
 # Release URL. Defaults to bitly upstream
 default['nsq']['release_url'] = 'https://s3.amazonaws.com/bitly-downloads/nsq'
+
+# What logger binary to use for shipping logs. This needs to act like
+# logger(1) and at least support a -t parameter for tags.
+default['nsq']['logger_bin'] = 'logger'
