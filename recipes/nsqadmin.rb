@@ -28,6 +28,8 @@ if node['nsq']['setup_services']
     provider Chef::Provider::Service::Upstart
     action [:enable, :start]
     supports stop: true, start: true, restart: true, status: true
-    subscribes :restart, "ark[#{nsq_release}]", :delayed
+    if node['nsq']['reload_services']
+      subscribes :restart, "ark[#{nsq_release}]", :delayed
+    end
   end
 end
