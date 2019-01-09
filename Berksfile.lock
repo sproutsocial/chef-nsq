@@ -1,0 +1,22 @@
+DEPENDENCIES
+  ark (>= 2.0.2)
+  nsq
+    path: .
+    metadata: true
+
+GRAPH
+  ark (4.0.0)
+    build-essential (>= 0.0.0)
+    seven_zip (>= 0.0.0)
+  build-essential (8.2.1)
+    mingw (>= 1.1)
+    seven_zip (>= 0.0.0)
+  mingw (2.1.0)
+    seven_zip (>= 0.0.0)
+  nsq (1.2.11)
+    ark (>= 0.1.0)
+    users (>= 0.1.5)
+  seven_zip (3.1.0)
+    windows (>= 0.0.0)
+  users (5.4.0)
+  windows (5.2.2)

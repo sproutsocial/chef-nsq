@@ -25,24 +25,56 @@ directory node['nsq']['nsqd']['data_path'] do
 end
 
 if node['nsq']['setup_services']
-  template '/etc/init/nsqd.conf' do
-    action :create
-    source 'upstart.nsqd.conf.erb'
-    mode '0644'
-    # need to stop/start in order to reload config
-    if node['nsq']['reload_services']
-      notifies :stop, 'service[nsqd]', :immediately
-      notifies :start, 'service[nsqd]', :immediately
+
+  if node.platform_family?('debian') && node['platform_version'].to_f >= 18.04
+    template '/srv/nsqd-start.sh' do
+      action :create
+      source 'nsqd-start.sh.erb'
+      mode '0550'
+      # mode '0777'
+      owner 'nsqd'
+      group 'nsqd'
+    end
+
+    template '/etc/systemd/system/nsqd.service' do
+      action :create
+      source 'systemd.nsqd.conf.erb'
+      mode '0644'
+      # need to stop/start in order to reload config
+      if node['nsq']['reload_services']
+        notifies :stop, 'service[nsqd]', :immediately
+        notifies :start, 'service[nsqd]', :immediately
+      end
+    end
+  else
+    template '/etc/init/nsqd.conf' do
+      action :create
+      source 'upstart.nsqd.conf.erb'
+      mode '0644'
+      # need to stop/start in order to reload config
+      if node['nsq']['reload_services']
+        notifies :stop, 'service[nsqd]', :immediately
+        notifies :start, 'service[nsqd]', :immediately
+      end
     end
   end
 
   service 'nsqd' do
-    provider Chef::Provider::Service::Upstart
-    action [:enable, :start]
-    supports stop: true, start: true, restart: true, status: true
-    # Conditionally subscribe to version updates
-    if node['nsq']['reload_services']
-      subscribes :restart, "ark[#{nsq_release}]", :delayed
+    if node.platform_family?('debian') && node['platform_version'].to_f >= 18.04
+      provider Chef::Provider::Service::Systemd
+      action [:enable, :start]
+      supports stop: true, start: true, restart: true, status: true
+      if node['nsq']['reload_services']
+        subscribes :restart, "ark[#{nsq_release}]", :delayed
+      end
+    else
+      provider Chef::Provider::Service::Upstart
+      action [:enable, :start]
+      supports stop: true, start: true, restart: true, status: true
+      # Conditionally subscribe to version updates
+      if node['nsq']['reload_services']
+        subscribes :restart, "ark[#{nsq_release}]", :delayed
+      end
     end
   end
 end
