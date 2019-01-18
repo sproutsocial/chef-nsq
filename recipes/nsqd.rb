@@ -31,32 +31,6 @@ if node['nsq']['setup_services']
 
   if node.platform?('ubuntu') && node['platform_version'].to_f >= 18.04
 
-    standard_error = node['nsq']['nsqd']['standard_error'].split('file:/')[1]
-    standard_output = node['nsq']['nsqd']['standard_output'].split('file:/')[1]
-
-    directory '/var/log/nsqd' do
-      action :create
-      mode '0770'
-      owner 'nsqd'
-      group 'nsqd'
-      recursive true
-    end
-
-    file standard_output do
-      action :create
-      mode '0770'
-      owner 'nsqd'
-      group 'nsqd'
-    end
-
-     file standard_error do
-      action :create
-      mode '0770'
-      owner 'nsqd'
-      group 'nsqd'
-    end
-
-
     template '/srv/nsqd-start.sh' do
       action :create
       source 'nsqd-start.sh.erb'

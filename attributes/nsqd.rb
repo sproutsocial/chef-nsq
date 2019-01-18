@@ -115,9 +115,3 @@ default['nsq']['nsqd']['e2e_processing_latency_percentile'] = '1.0,0.99,0.95'
 
 # -e2e-processing-latency-window-time=10m0s: calculate end to end latency quantiles for this duration of time (ie: 60s would only show quantile calculations from the past 60 seconds)
 default['nsq']['nsqd']['e2e_processing_latency_window_time'] = '10m0s'
-
-# controls where STDOUT for systemd scenarios outputs to
-default['nsq']['nsqd']['standard_output'] = 'file:/var/log/nsqd/output.log'
-
-# controls where STDERR for systemd scenarios outputs to
-default['nsq']['nsqd']['standard_error'] = 'file:/var/log/nsqd/error.log'

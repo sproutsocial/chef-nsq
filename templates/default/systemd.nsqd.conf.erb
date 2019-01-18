@@ -16,14 +16,6 @@ Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
 ExecStart=/srv/nsqd-start.sh
 Restart=on-failure
 RestartSec=1
-<% if node['nsq']['nsqd']['standard_error'] -%>
-StandardError=<%= node['nsq']['nsqd']['standard_error'] %>
-<% end -%>
-<% if node['nsq']['nsqd']['standard_output'] -%>
-StandardOutput=<%= node['nsq']['nsqd']['standard_output'] %>
-<% end -%>
 StartLimitAction=none
 StartLimitBurst=5
 TimeoutStopSec=5
-
-<%# WorkingDirectory=/path/to/nsq/home %>
