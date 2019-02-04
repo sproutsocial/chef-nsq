@@ -10,7 +10,8 @@ Chef version 0.10.10+ and Ohai 0.6.12+ are required.
 
 ### Platform
 * Ubuntu 12.10
-* Ubuntu 18, _kinda_, support has been added to allow the `nsqd` role to work via systemd.
+* Ubuntu 14.04
+* Ubuntu 18.04, _kinda_, support has been added to allow the `nsqd` and `nsqlookupd` roles to work via systemd.
 
 **Notes**: This cookbook has been tested on the listed platforms only. It may work on other platforms with modification.
 
@@ -128,7 +129,7 @@ After the lookup servers are up and running, you can setup _nsqd_.  To add _nsqd
 Testing
 -------
 
-    $ rake
+    $ kitchen test
 
 Authors
 -------
