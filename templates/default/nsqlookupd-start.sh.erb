@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+mkfifo /tmp/nsqlookupd-log-fifo
+( <%= node['nsq']['logger_bin'] %> -t nsqlookupd </tmp/nsqlookupd-log-fifo & )
+exec >/tmp/nsqlookupd-log-fifo
+rm /tmp/nsqlookupd-log-fifo
+
+/usr/local/bin/nsqlookupd \
+    --http-address <%= node["nsq"]["nsqlookupd"]["http_address"] %> \
+    --inactive-producer-timeout <%= node["nsq"]["nsqlookupd"]["inactive_producer_timeout"] %> \
+    --tcp-address <%= node["nsq"]["nsqlookupd"]["tcp_address"] %> \
+    <%- if !node['nsq']['nsqlookupd']['broadcast_address'].empty? %>
+      --broadcast-address <%= node["nsq"]["nsqlookupd"]["broadcast_address"] %> \
+    <%- end %>
+    --tombstone-lifetime <%= node["nsq"]["nsqlookupd"]["tombstone_lifetime"] %> \
+    --verbose <%= node["nsq"]["nsqlookupd"]["verbose"] %> 2>&1
