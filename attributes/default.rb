@@ -21,4 +21,4 @@ default['nsq']['release_url'] = 'https://s3.amazonaws.com/bitly-downloads/nsq'
 default['nsq']['logger_bin'] = 'logger'
 
 # Systemd start scripts will be placed here
-default['chef-nsq']['script_dir'] = '/srv'
+default['chef-nsq']['script_dir'] = '/usr/local/bin'
