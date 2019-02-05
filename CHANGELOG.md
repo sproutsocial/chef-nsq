@@ -1,3 +1,4 @@
+* 1.3.0 - Provide Ubuntu 18 support for nsqlookupd role
 * 1.2.12 - Provide Ubuntu 18 support for nsqd role
 * 1.2.3 - Added support for missing nsqd options
 * 1.2.2 - Added support for customizing the system users used to run nsq services

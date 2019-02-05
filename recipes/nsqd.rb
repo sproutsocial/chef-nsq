@@ -31,13 +31,13 @@ if node['nsq']['setup_services']
 
   if node.platform?('ubuntu') && node['platform_version'].to_f >= 18.04
 
-    template '/srv/nsqd-start.sh' do
+    template "#{node['chef-nsq']['script_dir']}/nsqd-start.sh" do
       action :create
       source 'nsqd-start.sh.erb'
       mode '0550'
       # mode '0777'
-      owner 'nsqd'
-      group 'nsqd'
+      owner node['nsq']['nsqd']['user']
+      group node['nsq']['nsqd']['user']
     end
 
     template '/etc/systemd/system/nsqd.service' do

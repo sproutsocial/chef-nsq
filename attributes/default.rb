@@ -19,3 +19,6 @@ default['nsq']['release_url'] = 'https://s3.amazonaws.com/bitly-downloads/nsq'
 # What logger binary to use for shipping logs. This needs to act like
 # logger(1) and at least support a -t parameter for tags.
 default['nsq']['logger_bin'] = 'logger'
+
+# Systemd start scripts will be placed here
+default['chef-nsq']['script_dir'] = '/usr/local/bin'

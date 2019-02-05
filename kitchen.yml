@@ -19,4 +19,6 @@ suites:
   - name: nsqd
     run_list:
       - recipe[nsq::nsqd]
-
+  - name: nsqlookupd
+    run_list:
+      - recipe[nsq::nsqlookupd]
