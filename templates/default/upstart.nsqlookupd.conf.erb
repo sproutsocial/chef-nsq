@@ -3,6 +3,13 @@ description "nsqlookupd"
 start on runlevel [2345]
 stop on runlevel [!2345]
 
+<% if node['nsq']['nsqlookupd']['filehandle_limit'] -%>
+limit nofile <%= node['nsq']['nsqlookupd']['filehandle_limit'] %> <%= node['nsq']['nsqlookupd']['filehandle_limit'] %>
+<% end -%>
+<% if node['nsq']['nsqlookupd']['nproc'] -%>
+limit nproc <%= node['nsq']['nsqlookupd']['nproc'] %> <%= node['nsq']['nsqlookupd']['nproc'] %>
+<% end -%>
+
 env PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
 
 respawn
