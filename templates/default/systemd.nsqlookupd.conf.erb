@@ -6,6 +6,12 @@ StartLimitIntervalSec=30
 [Service]
 User=<%= node['nsq']['nsqlookupd']['user'] %>
 Group=<%= node['nsq']['nsqlookupd']['user'] %>
+<% if node['nsq']['nsqlookupd']['filehandle_limit'] -%>
+LimitNOFILE=<%= node['nsq']['nsqlookupd']['filehandle_limit'] %>
+<% end -%>
+<% if node['nsq']['nsqlookupd']['nproc'] -%>
+LimitNPROC=<%= node['nsq']['nsqlookupd']['nproc'] %>
+<% end -%>
 Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
 ExecStart=<%= node['chef-nsq']['script_dir'] %>/nsqlookupd-start.sh
 Restart=on-failure
