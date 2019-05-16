@@ -1,3 +1,4 @@
+* 1.3.2 - nsqd, nsqlookupd start on boot for systemd
 * 1.3.1 - Add support for filehandle + process limits for nsqlookupd
 * 1.3.0 - Provide Ubuntu 18 support for nsqlookupd role
 * 1.2.12 - Provide Ubuntu 18 support for nsqd role
