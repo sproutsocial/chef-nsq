@@ -1,0 +1,18 @@
+[Unit]
+Description=nsqadmin
+After=network.target
+StartLimitIntervalSec=30
+
+[Service]
+User=<%= node['nsq']['nsqadmin']['user'] %>
+Group=<%= node['nsq']['nsqadmin']['user'] %>
+Environment=PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin
+ExecStart=<%= node['chef-nsq']['script_dir'] %>/nsqadmin-start.sh
+Restart=on-failure
+RestartSec=1
+StartLimitAction=none
+StartLimitBurst=5
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target

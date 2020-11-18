@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+mkfifo /tmp/nsqadmin-log-fifo
+( <%= node['nsq']['logger_bin'] %> -t nsqadmin </tmp/nsqadmin-log-fifo & )
+exec >/tmp/nsqadmin-log-fifo
+rm /tmp/nsqadmin-log-fifo
+
+exec su -s /bin/sh -c 'exec "$0" "$@"' <%= node["nsq"]["nsqadmin"]["user"] %> -- /usr/local/bin/nsqadmin \
+       --template-dir <%= node["nsq"]["nsqadmin"]["nsqd_template_dir"] %> \
+       <%- node["nsq"]["nsqadmin"]["lookupd_http_address"].each do |lookup_host| %>
+           --lookupd-http-address=<%= lookup_host %> \
+       <%- end %>
+       --use-statsd-prefixes=<%= node["nsq"]["nsqadmin"]["use_statsd_prefixes"] %> \
+       --statsd-interval=<%= node["nsq"]["nsqadmin"]["statsd_interval"] %> \
+       --proxy-graphite=<%= node["nsq"]["nsqadmin"]["proxy_graphite"] %> \
+       <% if node["nsq"]["nsqadmin"]["graphite_url"] != "" then %>
+       --graphite-url=<%= node["nsq"]["nsqadmin"]["graphite_url"] %> \
+       <% end %>
+       --http-address=<%= node["nsq"]["nsqadmin"]["http_address"] %> 2>&1
