@@ -20,7 +20,7 @@ if node['nsq']['setup_services']
       action :create
       source 'systemd.nsqadmin.conf.erb'
       mode '0644'
-      notifies :run, 'systemd_unit[nsqadmin.service]', :delayed
+      notifies :start, 'systemd_unit[nsqadmin.service]', :delayed
       # need to stop/start in order to reload config
       if node['nsq']['reload_services']
         notifies :stop, 'service[nsqadmin]', :immediately
@@ -52,10 +52,8 @@ if node['nsq']['setup_services']
       end
     end
   end
-
   service 'nsqadmin' do
     action [:enable, :start]
-    supports stop: true, start: true, restart: true, status: true
     if node['nsq']['reload_services']
       subscribes :restart, "ark[#{nsq_release}]", :delayed
     end
