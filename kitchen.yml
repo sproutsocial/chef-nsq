@@ -6,7 +6,7 @@ driver:
 
 provisioner:
   name: chef_zero
-  require_chef_omnibus: true
+  require_chef_omnibus: '12'
 
 verifier:
   name: inspec
@@ -18,7 +18,13 @@ platforms:
 suites:
   - name: nsqd
     run_list:
+      - recipe[apt]
       - recipe[nsq::nsqd]
   - name: nsqlookupd
     run_list:
+      - recipe[apt]
       - recipe[nsq::nsqlookupd]
+  - name: nsqadmin
+    run_list:
+      - recipe[apt]
+      - recipe[nsq::nsqadmin]
